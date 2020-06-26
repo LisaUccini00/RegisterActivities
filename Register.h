@@ -40,5 +40,8 @@ public:
         }
 
     }
+    map<Date, list < Activity *>> getMap(){
+        return activities;
+    }
 };
 #endif //REGISTERACTIVITIES_REGISTER_H
