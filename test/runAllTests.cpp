@@ -1,4 +1,4 @@
-#include "lib/googletest-master/googletest/include/gtest/gtest.h"
+#include "lib/googletest/include/gtest/gtest.h"
 
 int main(){
     ::testing::InitGoogleTest();

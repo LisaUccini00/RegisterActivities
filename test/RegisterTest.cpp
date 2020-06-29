@@ -1,4 +1,4 @@
-#include "lib/googletest-master/googletest/include/gtest/gtest.h"
+#include "lib/googletest/include/gtest/gtest.h"
 #include "../Register.h"
 #include "../Activity.h"
 #include "../Date.h"
@@ -31,3 +31,17 @@ TEST(Register, TestAddRemoveActivity){
 
     ASSERT_EQ(correctRegRem, reg->getMap());
 }
+
+/*
+ * add_subdirectory(googletest)
+set(gtest_SOURCE_DIR, googletest)
+cmake_minimum_required(VERSION 3.5)
+
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+include_directories(${GTEST_INCLUDE_DIRS})
+
+set(SOURCE_FILES RegisterTest.cpp, RegisterTestFixture.cpp)
+add_executable(test runAllTests.cpp)
+add_library(testcore ${SOURCE_FILES})
+target_link_libraries(test ${GTEST_BOTH_LIBRARIES} testcore)
+ */

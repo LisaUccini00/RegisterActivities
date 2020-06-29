@@ -43,5 +43,11 @@ public:
     map<Date, list < Activity *>> getMap(){
         return activities;
     }
+    bool operator==(const Register& right){
+        for (auto day: activities){
+            for(auto activity: day.second){
+            }
+        }
+    }
 };
 #endif //REGISTERACTIVITIES_REGISTER_H

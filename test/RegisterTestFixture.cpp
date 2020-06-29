@@ -1,7 +1,7 @@
-#include "lib/googletest-master/googletest/include/gtest/gtest.h"
+#include "lib/googletest/include/gtest/gtest.h"
 #include "../Register.h"
 
-class RegisterTextFixture: public ::testint::Test{
+class RegisterTextFixture: public ::testing::Test{
 protected:
     Register *r = new Register;
 };
