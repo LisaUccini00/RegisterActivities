@@ -15,10 +15,12 @@
 #include <wx/statbox.h>
 #include <wx/frame.h>
 #include "InsertFrame.h"
+#include "Register.h"
 class HomeFrame : public wxFrame
 {
 private:
-
+    Register *r;
+    void closeFrame();
 protected:
     wxButton* insert_button;
     wxCalendarCtrl* m_calendar1;
@@ -26,13 +28,16 @@ protected:
 
 public:
 
-    HomeFrame( wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 855, 489 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    HomeFrame( Register& r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~HomeFrame();
 
     // Virtual event handlers, overide them in your derived class
     virtual void OnInsertFrame( wxCommandEvent& event );
-    virtual void OnViewFrame( wxCommandEvent& event ) { event.Skip(); }
+    virtual void OnViewFrame( wxCommandEvent& event ) {
+        event.Skip();
+        //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
+    }
 
 };
 #endif //REGISTERACTIVITIES_HOMEFRAME_H

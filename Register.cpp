@@ -3,7 +3,7 @@
 //
 #include "Register.h"
 
-void Register::addActivity(Date& d, Activity& a) {
+void Register::addActivity(wxDateTime d, Activity& a) {
     auto day = activities.find(d);
     if(day != activities.end()){
         day->second.push_back(&a);
@@ -14,7 +14,7 @@ void Register::addActivity(Date& d, Activity& a) {
     }
 }
 
-void Register::removeActivity(Date &d, Activity &a) {
+void Register::removeActivity(wxDateTime &d, Activity &a) {
     auto day = activities.find(d);
     if(day != activities.end()){
         auto activity = find(day->second.begin(), day->second.end(), &a);
@@ -24,8 +24,8 @@ void Register::removeActivity(Date &d, Activity &a) {
     }
 }
 
-list<Activity *> Register::getActivities(const Date &d) {
-    cout<<"Attivita' data "<<d.getDay()<<"/"<<d.getMonth()<<"/"<<d.getYear()<<endl;
+list<Activity *> Register::getActivities(const wxDateTime &d) {
+    cout<<"Attivita' data "<<endl;
     auto date = activities.find(d);
     for(auto activity: date->second){
         activity->print();

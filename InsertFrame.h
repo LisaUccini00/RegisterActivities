@@ -5,6 +5,7 @@
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/string.h>
+#include <wx/datetime.h>
 #include <wx/textctrl.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
@@ -20,14 +21,19 @@
 #include <wx/frame.h>
 
 #include "HomeFrame.h"
+#include "Register.h"
 
 
 class InsertFrame : public wxFrame
 {
 private:
-
+    Register *r;
+    void closeFrame();
+    void returnHome();
 protected:
+    wxStaticText* title_static;
     wxTextCtrl* title_text;
+    wxStaticText* description_static;
     wxTextCtrl* description_text;
     wxStaticText* start_time_text;
     wxSpinCtrl* start_hours;
@@ -38,17 +44,17 @@ protected:
     wxSpinCtrl* stop_minutes;
     wxSpinCtrl* stop_seconds;
     wxDatePickerCtrl* date_actvity;
-    wxButton* return_button;
     wxButton* insert_button;
+    wxButton* return_button;
 
     // Virtual event handlers, overide them in your derived class
     virtual void OnReturnClick( wxCommandEvent& event );
-    virtual void OnInsertClick( wxCommandEvent& event ) { event.Skip(); }
+    virtual void OnInsertClick( wxCommandEvent& event );
 
 
 public:
 
-    InsertFrame( wxWindowID id = wxID_ANY, const wxString& title = wxT("insert activity"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1211,667 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    InsertFrame( Register &reg, wxWindowID id = wxID_ANY, const wxString& title = wxT("insert activity"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 900, 450), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~InsertFrame();
 
