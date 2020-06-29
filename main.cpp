@@ -1,8 +1,7 @@
 #include <iostream>
-#include "Time.h"
 #include "Date.h"
-#include "Activity.h"
 #include "Register.h"
+
 
 int main() {
     Time t(4, 4, 4);
@@ -16,8 +15,7 @@ int main() {
     reg->addActivity(firstDate, *secondEvent);
     reg->removeActivity(firstDate, *firstEvent);
     reg->addActivity(secondDate, *thirdEvent);
-    reg->getActivities(firstDate);
-    reg->getActivities(secondDate);
+    list<Activity*> registeredA = reg->getActivities(firstDate);
 
     return 0;
 }

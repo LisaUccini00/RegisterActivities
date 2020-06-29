@@ -6,7 +6,7 @@ private:
     int day, month, year;
 public:
     Date(int giorno, int mese, int anno): day(giorno), month(mese), year(anno){}
-    bool operator<(const Date &compare)const{
+    bool operator<(const Date &compare)const{ //copy in .cpp
         if(year<compare.year){
             return true;
         }else if(year==compare.year){
@@ -20,6 +20,13 @@ public:
         }
         return false;
     }
+    bool operator==(const Date &right)const{
+        if(year == right.getYear() && month == right.getMonth() && day == right.getDay()){
+            return true;
+        }
+        return false;
+    }
+
 
     int getDay() const {
         return day;
