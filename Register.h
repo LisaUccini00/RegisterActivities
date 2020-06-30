@@ -20,6 +20,18 @@ struct Time{
         }
         return false;
     }
+    bool operator<(Time right){
+        if(hours<right.hours){
+            return true;
+        }else if(hours == right.hours){
+            if(minutes<right.minutes){
+                return true;
+            }else if(minutes == right.minutes && seconds < right.seconds){
+                return true;
+            }
+        }
+        return false;
+    }
     string toString(){
         return std::to_string(hours)+":"+std::to_string(minutes)+":"+std::to_string(seconds);
     }

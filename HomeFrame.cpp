@@ -19,20 +19,26 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     wxStaticBoxSizer* buttonBox;
     buttonBox = new wxStaticBoxSizer( new wxStaticBox( secondBox->GetStaticBox(), wxID_ANY, wxEmptyString ), wxVERTICAL );
 
-    view_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Visualizza attività"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
-    view_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
-    view_button->SetForegroundColour(wxColor(255, 128, 0));
-    buttonBox->Add( view_button, 0, wxALL|wxEXPAND, 5 );
-
     insert_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Inserisci attività"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     insert_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     insert_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
 
+    view_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Visualizza attività"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+    view_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
+    view_button->SetForegroundColour(wxColor(255, 128, 0));
+    buttonBox->Add( view_button, 0, wxALL|wxEXPAND, 5 );
+
     close_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Chiudi"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     close_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     close_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( close_button, 0, wxALL|wxEXPAND, 5 );
+
+    wxButton * help_button = new wxButton( buttonBox->GetStaticBox(), wxID_HELP );
+    /*help_button->SetFont( wxFont( 7, 70, 90, 90, false, wxT("Rubik") ) );
+    help_button->SetForegroundColour(wxColor(255, 128, 0));*/
+    buttonBox->Add( help_button, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
+
 
     secondBox->Add( buttonBox, 1, 5 );
     this->SetSizer( secondBox );
@@ -44,6 +50,7 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     view_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
     insert_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
     close_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::closeFrame ), NULL, this );
+    help_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnHelp ), NULL, this );
 }
 
 HomeFrame::~HomeFrame()
@@ -71,13 +78,18 @@ void HomeFrame::OnViewFrame(wxCommandEvent &event) {
     for(auto it: list){
         cout<<it->title<<endl;
     }
+    wxString data = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
     if(list.empty()){
         wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
     }else{
-        ViewFrame *viewF = new ViewFrame(r, list);
+        ViewFrame *viewF = new ViewFrame(r, list, data);
         viewF->Show( true );
         delete this;
     }
 
     //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
+}
+
+void HomeFrame::OnHelp(wxCommandEvent &event) {
+    wxMessageBox(wxT("Inserisci una nuova attività oppure scegli una data e visualizza le attività effettuate quel giorno"), wxT("Help"), wxHELP, this);
 }

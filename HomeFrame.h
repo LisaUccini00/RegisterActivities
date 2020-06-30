@@ -30,7 +30,7 @@ protected:
 
 public:
 
-    HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 250), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~HomeFrame();
 
@@ -38,6 +38,7 @@ public:
     virtual void closeFrame( wxCommandEvent& event );
     virtual void OnInsertFrame( wxCommandEvent& event );
     virtual void OnViewFrame( wxCommandEvent& event );
+    virtual void OnHelp(wxCommandEvent& event);
 
 };
 #endif //REGISTERACTIVITIES_HOMEFRAME_H

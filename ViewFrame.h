@@ -36,7 +36,7 @@ protected:
 
 public:
 
-    ViewFrame( Register* reg, list<Activity*> a, wxWindowID id = wxID_ANY, const wxString& title = wxT("Visualizza attività"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,300 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    ViewFrame( Register* reg, list<Activity*> a, const wxString& title = wxT("Visualizza attività"), wxWindowID id = wxID_ANY,  const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,300 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
     ~ViewFrame();
 };
 #endif //REGISTERACTIVITIES_VIEWFRAME_H

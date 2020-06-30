@@ -18,8 +18,8 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     title_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     title_static->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
     firstGrid->Add( title_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    title_text = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-    title_text->SetFont( wxFont( 7, 70, 90, 90, false, wxT("Rubik") ) );
+    title_text = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
+    title_text->SetFont( wxFont( 12, 70, 90, 90, false, wxT("Rubik") ) );
     title_text->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( title_text, 0, wxALL|wxEXPAND, 5 );
 
@@ -28,7 +28,7 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     description_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     firstGrid->Add( description_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     description_text = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
-    description_text->SetFont( wxFont( 7, 70, 90, 90, false, wxT("Rubik") ) );
+    description_text->SetFont( wxFont( 12, 70, 90, 90, false, wxT("Rubik") ) );
     description_text->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( description_text, 0, wxALL|wxEXPAND, 5 );
 
@@ -41,15 +41,15 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     wxGridSizer* startGrid;
     startGrid = new wxGridSizer( 1, 3, 0, 0 );
 
-    start_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    start_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 24, 0 );
     start_hours->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     startGrid->Add( start_hours, 0, wxALL, 5 );
 
-    start_minutes = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    start_minutes = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 59, 0 );
     start_minutes->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     startGrid->Add( start_minutes, 0, wxALL, 5 );
 
-    start_seconds = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    start_seconds = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 59, 0 );
     start_seconds->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
 
     startGrid->Add( start_seconds, 0, wxALL, 5 );
@@ -64,15 +64,15 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     wxGridSizer* stopGrid;
     stopGrid = new wxGridSizer( 1, 3, 0, 0 );
 
-    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS,1, 24, 0 );
     stop_hours->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     stopGrid->Add( stop_hours, 0, wxALL, 5 );
 
-    stop_minutes = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    stop_minutes = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 59, 0 );
     stop_minutes->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     stopGrid->Add( stop_minutes, 0, wxALL, 5 );
 
-    stop_seconds = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 60, 0 );
+    stop_seconds = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 59, 0 );
     stop_seconds->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     stopGrid->Add( stop_seconds, 0, wxALL, 5 );
     firstGrid->Add( stopGrid, 1, 0, 5 );
@@ -124,9 +124,13 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     Activity *a = new Activity(title, description, start, stop);
     Time controll(0, 0, 0);
     if(start != controll && stop != controll && title != "" && description != "" ) {
-        r->addActivity(date_actvity->GetValue(), *a);
-        wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
-        returnHome();
+        if(start < stop){
+            r->addActivity(date_actvity->GetValue(), *a);
+            wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
+            returnHome();
+        }else{
+            wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxICON_ERROR, this);
+        }
     }else{
         wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxICON_ERROR, this);
     }
