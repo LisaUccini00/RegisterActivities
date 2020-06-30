@@ -20,11 +20,11 @@ class HomeFrame : public wxFrame
 {
 private:
     Register *r;
-    void closeFrame();
 protected:
     wxButton* insert_button;
     wxCalendarCtrl* m_calendar1;
     wxButton* view_button;
+    wxButton* close_button;
 
 public:
 
@@ -33,11 +33,9 @@ public:
     ~HomeFrame();
 
     // Virtual event handlers, overide them in your derived class
+    virtual void closeFrame( wxCommandEvent& event );
     virtual void OnInsertFrame( wxCommandEvent& event );
-    virtual void OnViewFrame( wxCommandEvent& event ) {
-        event.Skip();
-        //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
-    }
+    virtual void OnViewFrame( wxCommandEvent& event );
 
 };
 #endif //REGISTERACTIVITIES_HOMEFRAME_H

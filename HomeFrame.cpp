@@ -1,6 +1,8 @@
 
 
 #include "HomeFrame.h"
+#include "ViewFrame.h"
+#include <list>
 HomeFrame::HomeFrame(Register& reg, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(&reg), wxFrame( NULL, id, title, pos, size, style )
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
@@ -25,6 +27,11 @@ HomeFrame::HomeFrame(Register& reg, wxWindowID id, const wxString& title, const 
     insert_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
 
+    close_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Chiudi"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+    close_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
+    close_button->SetForegroundColour(wxColor(255, 128, 0));
+    buttonBox->Add( close_button, 0, wxALL|wxEXPAND, 5 );
+
     secondBox->Add( buttonBox, 1, 5 );
     this->SetSizer( secondBox );
     this->Layout();
@@ -34,11 +41,13 @@ HomeFrame::HomeFrame(Register& reg, wxWindowID id, const wxString& title, const 
     // Connect Events
     view_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
     insert_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
+    close_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::closeFrame ), NULL, this );
 }
 
 HomeFrame::~HomeFrame()
 {
-    closeFrame();
+    insert_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
+    view_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
 }
 
 void HomeFrame::OnInsertFrame(wxCommandEvent &event) {
@@ -49,7 +58,17 @@ void HomeFrame::OnInsertFrame(wxCommandEvent &event) {
 
 }
 
-void HomeFrame::closeFrame(){
+void HomeFrame::closeFrame( wxCommandEvent& event ){
     insert_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
     view_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
+    delete this;
+}
+
+void HomeFrame::OnViewFrame(wxCommandEvent &event) {
+    auto list = r->getActivities(m_calendar1->GetDate());
+    ViewFrame *viewF = new ViewFrame(*r, list);
+    viewF->Show( true );
+    delete this;
+
+    //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
 }

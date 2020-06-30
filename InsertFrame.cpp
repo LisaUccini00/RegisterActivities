@@ -123,9 +123,10 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     Time controll(0, 0, 0);
     if(start != controll && stop != controll && title != "" && description != "" ) {
         r->addActivity(date_actvity->GetValue(), a);
+        wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
         returnHome();
     }else{
-        //schermata di errore
+        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxICON_ERROR, this);
     }
 
 }

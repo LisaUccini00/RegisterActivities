@@ -17,7 +17,7 @@ TEST(RegisterTextFixture, TestAddActivity){
     activities.push_back(firstEvent);
     activities.push_back(secondEvent);
     ASSERT_EQ(activities, reg->getActivities(firstDate));
-    
+
 
 }
 

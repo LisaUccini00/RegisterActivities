@@ -31,7 +31,7 @@ struct Activity{
 
 class Register{
 private:
-    map<wxDateTime, list < Activity *>> activities;
+    map<wxDateTime, list < Activity*>> activities;
 public:
     void addActivity(wxDateTime d, Activity& a);
     void removeActivity(wxDateTime& d, Activity& a);
