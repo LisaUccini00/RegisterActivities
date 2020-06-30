@@ -32,7 +32,7 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     description_text->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( description_text, 0, wxALL|wxEXPAND, 5 );
 
-    start_time_text = new wxStaticText( this, wxID_ANY, wxT("Orario inizio: "), wxDefaultPosition, wxDefaultSize, 0 );
+    start_time_text = new wxStaticText( this, wxID_ANY, wxT("Orario inizio (ore, minuti, secondi): "), wxDefaultPosition, wxDefaultSize, 0 );
     start_time_text->Wrap( -1 );
     start_time_text->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     start_time_text->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
@@ -55,7 +55,7 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     startGrid->Add( start_seconds, 0, wxALL, 5 );
     firstGrid->Add( startGrid, 1, 0, 5 );
 
-    stop_time_text = new wxStaticText( this, wxID_ANY, wxT("Orario fine: "), wxDefaultPosition, wxDefaultSize, 0 );
+    stop_time_text = new wxStaticText( this, wxID_ANY, wxT("Orario fine (ore, minuti, secondi): "), wxDefaultPosition, wxDefaultSize, 0 );
     stop_time_text->Wrap( -1 );
     stop_time_text->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     stop_time_text->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
