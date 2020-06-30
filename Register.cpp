@@ -1,6 +1,7 @@
 //
-// Created by lisauccini on 29/06/20.
+//Created by Innocenti Uccini Lisa
 //
+
 #include "Register.h"
 
 void Register::addActivity(wxDateTime d, Activity& a) {
@@ -25,8 +26,15 @@ void Register::removeActivity(wxDateTime &d, Activity &a) {
 }
 
 list<Activity *> Register::getActivities(const wxDateTime &d) {
-    cout<<"Attivita' data "<<endl;
     auto date = activities.find(d);
-    return date->second;
+    if(date != activities.end()){
+        for(auto it: date->second){
+            cout<<it->title<<endl;
+        }
+        return date->second;
+    }else{
+        list<Activity*> l;
+        return l;
+    }
 
 }

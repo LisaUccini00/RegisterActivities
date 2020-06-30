@@ -1,3 +1,7 @@
+//
+//Created by Innocenti Uccini Lisa
+//
+
 #include "lib/googletest/include/gtest/gtest.h"
 #include "../Register.h"
 #include <list>
@@ -11,13 +15,11 @@ TEST(RegisterTextFixture, TestAddActivity){
     Activity secondEvent("title2", "second event", t, t);
     Register *reg = new Register;
     reg->addActivity(firstDate.Now(), firstEvent);
-    reg->addActivity(firstDate, secondEvent);
+    reg->addActivity(firstDate.Now(), secondEvent);
 
-    list<Activity> activities;
-    activities.push_back(firstEvent);
-    activities.push_back(secondEvent);
-    ASSERT_EQ(activities, reg->getActivities(firstDate));
-
-
+    list<Activity*> activities;
+    activities.push_back(&firstEvent);
+    activities.push_back(&secondEvent);
+    ASSERT_EQ(activities, reg->getActivities(firstDate.Now()));
 }
 

@@ -1,3 +1,6 @@
+//
+//Created by Innocenti Uccini Lisa
+//
 
 #ifndef REGISTERACTIVITIES_REGISTER_H
 #define REGISTERACTIVITIES_REGISTER_H
@@ -17,6 +20,9 @@ struct Time{
         }
         return false;
     }
+    string toString(){
+        return std::to_string(hours)+":"+std::to_string(minutes)+":"+std::to_string(seconds);
+    }
 };
 
 struct Activity{
@@ -24,9 +30,6 @@ struct Activity{
     Time start, stop;
     Activity(string titolo, string descrizione, Time inizio, Time fine):
             title(titolo), description(descrizione), start(inizio), stop(fine){}
-    void print(){ //trasform in toString()
-        cout<<title<<endl;
-    }
 };
 
 class Register{

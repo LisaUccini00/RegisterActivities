@@ -1,4 +1,6 @@
-
+//
+//Created by Innocenti Uccini Lisa
+//
 
 #include "InsertFrame.h"
 #include "Register.h"
@@ -119,10 +121,10 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     string description = description_text->GetValue().ToStdString();
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
-    Activity a(title, description, start, stop);
+    Activity *a = new Activity(title, description, start, stop);
     Time controll(0, 0, 0);
     if(start != controll && stop != controll && title != "" && description != "" ) {
-        r->addActivity(date_actvity->GetValue(), a);
+        r->addActivity(date_actvity->GetValue(), *a);
         wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
         returnHome();
     }else{
@@ -138,7 +140,7 @@ void InsertFrame::closeFrame() {
 }
 
 void InsertFrame::returnHome() {
-    HomeFrame *home = new HomeFrame(*r);
+    HomeFrame *home = new HomeFrame(r);
     home->Show( true );
     delete this;
 }

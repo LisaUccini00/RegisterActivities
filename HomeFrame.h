@@ -1,4 +1,6 @@
-
+//
+//Created by Innocenti Uccini Lisa
+//
 
 #ifndef REGISTERACTIVITIES_HOMEFRAME_H
 #define REGISTERACTIVITIES_HOMEFRAME_H
@@ -28,7 +30,7 @@ protected:
 
 public:
 
-    HomeFrame( Register& r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~HomeFrame();
 

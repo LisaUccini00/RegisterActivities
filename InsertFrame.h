@@ -1,3 +1,6 @@
+//
+//Created by Innocenti Uccini Lisa
+//
 
 #ifndef REGISTERACTIVITIES_INSERTFRAME_H
 #define REGISTERACTIVITIES_INSERTFRAME_H

@@ -1,20 +1,26 @@
+//
+//Created by Innocenti Uccini Lisa
+//
+
 #include "ViewFrame.h"
 #include "HomeFrame.h"
 #include "Register.h"
 #include <list>
 
-ViewFrame::ViewFrame( Register& reg, list<Activity*> a, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(&reg), listActivity(a), wxFrame( NULL, id, title, pos, size, style )
+ViewFrame::ViewFrame( Register* reg, list<Activity*> a, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(reg), listActivity(a), wxFrame( NULL, id, title, pos, size, style )
 {
+    int number = a.size();
+
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
     wxStaticBoxSizer* generalBox;
     generalBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
     wxGridSizer* intestazioneGrid;
-    intestazioneGrid = new wxGridSizer( 1, 4, 0, 0 );
+    intestazioneGrid = new wxGridSizer( number+1, 4, 0, 0 );
 
     title_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Titolo"), wxDefaultPosition, wxDefaultSize, 0 );
     title_static1->Wrap( -1 );
     title_static1->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
-    title_static1->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
+    title_static1->SetForegroundColour( wxSystemSettings::GetColour(  wxSYS_COLOUR_WINDOWTEXT ) );
     intestazioneGrid->Add( title_static1, 0, wxALL, 5 );
 
     description_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Descrizione"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -31,6 +37,36 @@ ViewFrame::ViewFrame( Register& reg, list<Activity*> a, wxWindowID id, const wxS
     stop_static->Wrap( -1 );
     stop_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
+
+
+    for(auto activity: listActivity){
+        wxString titolo(activity->title.c_str(), wxConvUTF8);
+        wxString descrizione(activity->description.c_str(), wxConvUTF8);
+        wxString start(activity->start.toString().c_str(), wxConvUTF8);
+        wxString stop(activity->stop.toString().c_str(), wxConvUTF8);
+
+        title_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, titolo, wxDefaultPosition, wxDefaultSize, 0 );
+        title_static1->Wrap( -1 );
+        title_static1->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
+        title_static1->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
+        intestazioneGrid->Add( title_static1, 0, wxALL, 5 );
+
+        description_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, descrizione, wxDefaultPosition, wxDefaultSize, 0 );
+        description_static1->Wrap( -1 );
+        description_static1->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
+        intestazioneGrid->Add( description_static1, 0, wxALL, 5 );
+
+        start_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, start, wxDefaultPosition, wxDefaultSize, 0 );
+        start_static->Wrap( -1 );
+        start_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
+        intestazioneGrid->Add( start_static, 0, wxALL, 5 );
+
+        stop_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, stop, wxDefaultPosition, wxDefaultSize, 0 );
+        stop_static->Wrap( -1 );
+        stop_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
+        intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
+    }
+
 
     generalBox->Add( intestazioneGrid, 1, wxEXPAND, 5 );
 
@@ -56,7 +92,7 @@ ViewFrame::~ViewFrame()
 }
 
 void ViewFrame::OnReturnClick(wxCommandEvent &event) {
-    HomeFrame *home = new HomeFrame(*r);
+    HomeFrame *home = new HomeFrame(r);
     home->Show( true );
     delete this;
 }

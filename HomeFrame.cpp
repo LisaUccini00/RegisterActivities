@@ -1,9 +1,11 @@
-
+//
+//Created by Innocenti Uccini Lisa
+//
 
 #include "HomeFrame.h"
 #include "ViewFrame.h"
 #include <list>
-HomeFrame::HomeFrame(Register& reg, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(&reg), wxFrame( NULL, id, title, pos, size, style )
+HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(reg), wxFrame( NULL, id, title, pos, size, style )
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
     this->SetBackgroundColour( wxColour( 208, 208, 208 ) );
@@ -66,9 +68,16 @@ void HomeFrame::closeFrame( wxCommandEvent& event ){
 
 void HomeFrame::OnViewFrame(wxCommandEvent &event) {
     auto list = r->getActivities(m_calendar1->GetDate());
-    ViewFrame *viewF = new ViewFrame(*r, list);
-    viewF->Show( true );
-    delete this;
+    for(auto it: list){
+        cout<<it->title<<endl;
+    }
+    if(list.empty()){
+        wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
+    }else{
+        ViewFrame *viewF = new ViewFrame(r, list);
+        viewF->Show( true );
+        delete this;
+    }
 
     //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
 }
