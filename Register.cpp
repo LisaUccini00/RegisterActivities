@@ -28,9 +28,6 @@ void Register::removeActivity(wxDateTime &d, Activity &a) {
 list<Activity *> Register::getActivities(const wxDateTime &d) {
     auto date = activities.find(d);
     if(date != activities.end()){
-        for(auto it: date->second){
-            cout<<it->title<<endl;
-        }
         return date->second;
     }else{
         list<Activity*> l;

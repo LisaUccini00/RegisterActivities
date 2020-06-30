@@ -29,6 +29,8 @@ protected:
     wxStaticText* description_static1;
     wxStaticText* start_static;
     wxStaticText* stop_static;
+    wxTextCtrl* title_text;
+    wxTextCtrl* description_text;
     wxButton* return_button;
 
     // Virtual event handlers, overide them in your derived class
