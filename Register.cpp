@@ -3,15 +3,23 @@
 //
 
 #include "Register.h"
+#include <algorithm>
 
-void Register::addActivity(wxDateTime d, Activity& a) {
+bool Register::addActivity(wxDateTime d, Activity& a) {
     auto day = activities.find(d);
     if(day != activities.end()){
-        day->second.push_back(&a);
+        auto ac = find(day->second.begin(), day->second.end(), &a);
+        if(ac == day->second.end()){
+            day->second.push_back(&a);
+            return true;
+        }else{
+            return false;
+        }
     }else{
         list<Activity*> l;
         l.push_back(&a);
         activities.insert(make_pair(d, l));
+        return true;
     }
 }
 

@@ -117,6 +117,7 @@ void InsertFrame::OnReturnClick(wxCommandEvent &event) {
 }
 
 void InsertFrame::OnInsertClick(wxCommandEvent &event) {
+    bool added;
     string title = title_text->GetValue().ToStdString();
     string description = description_text->GetValue().ToStdString();
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
@@ -125,9 +126,13 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     Time controll(0, 0, 0);
     if(start != controll && stop != controll && title != "" && description != "" ) {
         if(start < stop){
-            r->addActivity(date_actvity->GetValue(), *a);
-            wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
-            returnHome();
+            added = r->addActivity(date_actvity->GetValue(), *a);
+            if(added){
+                wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
+                returnHome();
+            }else{
+                wxMessageBox(wxT("Questa attività è già stata inserita precedentemente"), wxT("Attenzione"), wxICON_ERROR, this);
+            }
         }else{
             wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxICON_ERROR, this);
         }
