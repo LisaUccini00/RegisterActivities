@@ -14,7 +14,7 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     secondBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY , wxEmptyString), wxHORIZONTAL );
 
     m_calendar1 = new wxCalendarCtrl( secondBox->GetStaticBox(), wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxSize( -1,-1 ), wxCAL_SHOW_HOLIDAYS );
-    secondBox->Add( m_calendar1, 0, wxALL, 5 );
+    secondBox->Add( m_calendar1, 1, 5 );
 
     wxStaticBoxSizer* buttonBox;
     buttonBox = new wxStaticBoxSizer( new wxStaticBox( secondBox->GetStaticBox(), wxID_ANY, wxEmptyString ), wxVERTICAL );
@@ -29,27 +29,17 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     view_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( view_button, 0, wxALL|wxEXPAND, 5 );
 
-    close_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Chiudi"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
-    close_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
-    close_button->SetForegroundColour(wxColor(255, 128, 0));
-    buttonBox->Add( close_button, 0, wxALL|wxEXPAND, 5 );
-
-    wxButton * help_button = new wxButton( buttonBox->GetStaticBox(), wxID_HELP );
-    /*help_button->SetFont( wxFont( 7, 70, 90, 90, false, wxT("Rubik") ) );
-    help_button->SetForegroundColour(wxColor(255, 128, 0));*/
+    help_button = new wxButton( buttonBox->GetStaticBox(), wxID_HELP );
     buttonBox->Add( help_button, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
-
 
     secondBox->Add( buttonBox, 1, 5 );
     this->SetSizer( secondBox );
     this->Layout();
-
     this->Centre( wxBOTH );
 
     // Connect Events
     view_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
     insert_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
-    close_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::closeFrame ), NULL, this );
     help_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnHelp ), NULL, this );
 }
 
@@ -60,17 +50,10 @@ HomeFrame::~HomeFrame()
 }
 
 void HomeFrame::OnInsertFrame(wxCommandEvent &event) {
-
     InsertFrame *insertF = new InsertFrame(*r);
     insertF->Show( true );
     delete this;
 
-}
-
-void HomeFrame::closeFrame( wxCommandEvent& event ){
-    insert_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnInsertFrame ), NULL, this );
-    view_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( HomeFrame::OnViewFrame ), NULL, this );
-    delete this;
 }
 
 void HomeFrame::OnViewFrame(wxCommandEvent &event) {
@@ -86,8 +69,6 @@ void HomeFrame::OnViewFrame(wxCommandEvent &event) {
         viewF->Show( true );
         delete this;
     }
-
-    //prendi la data, se c'è almeno una attività allora viewFrame altrimenti finestra di errore
 }
 
 void HomeFrame::OnHelp(wxCommandEvent &event) {

@@ -26,16 +26,15 @@ protected:
     wxButton* insert_button;
     wxCalendarCtrl* m_calendar1;
     wxButton* view_button;
-    wxButton* close_button;
+    wxButton* help_button;
 
 public:
 
-    HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 500, 250), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 600, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~HomeFrame();
 
     // Virtual event handlers, overide them in your derived class
-    virtual void closeFrame( wxCommandEvent& event );
     virtual void OnInsertFrame( wxCommandEvent& event );
     virtual void OnViewFrame( wxCommandEvent& event );
     virtual void OnHelp(wxCommandEvent& event);

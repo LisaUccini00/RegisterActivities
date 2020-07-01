@@ -64,7 +64,7 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     wxGridSizer* stopGrid;
     stopGrid = new wxGridSizer( 1, 3, 0, 0 );
 
-    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS,1, 24, 0 );
+    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS,0, 24, 0 );
     stop_hours->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     stopGrid->Add( stop_hours, 0, wxALL, 5 );
 
@@ -127,11 +127,10 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     if(start != controll && stop != controll && title != "" && description != "" ) {
         if(start < stop){
             added = r->addActivity(date_actvity->GetValue(), *a);
-            if(added){
-                wxMessageBox(wxT("Inserimento avvenuto con successo"), wxT(""), wxOK, this);
-                returnHome();
-            }else{
+            if(!added){
                 wxMessageBox(wxT("Questa attività è già stata inserita precedentemente"), wxT("Attenzione"), wxICON_ERROR, this);
+            }else{
+                returnHome();
             }
         }else{
             wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxICON_ERROR, this);

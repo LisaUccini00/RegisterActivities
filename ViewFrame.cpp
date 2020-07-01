@@ -41,7 +41,6 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
     stop_static->SetForegroundColour( wxColour(255, 128, 0));
     intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
 
-
     for(auto activity: listActivity){
         wxString titolo(activity->title.c_str(), wxConvUTF8);
         wxString descrizione(activity->description.c_str(), wxConvUTF8);
@@ -69,14 +68,12 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
         intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
     }
 
-
     generalBox->Add( intestazioneGrid, 1, 5 );
 
     return_button = new wxButton( generalBox->GetStaticBox(), wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
     return_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     return_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
     return_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-
     generalBox->Add( return_button, 0, wxALL|wxEXPAND|wxLEFT, 5 );
 
     this->SetSizer( generalBox );

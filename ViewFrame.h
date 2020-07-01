@@ -33,6 +33,7 @@ protected:
     wxTextCtrl* description_text;
     wxButton* return_button;
 
+
     // Virtual event handlers, overide them in your derived class
     virtual void OnReturnClick( wxCommandEvent& event );
 
