@@ -19,7 +19,7 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     wxStaticBoxSizer* buttonBox;
     buttonBox = new wxStaticBoxSizer( new wxStaticBox( secondBox->GetStaticBox(), wxID_ANY, wxEmptyString ), wxVERTICAL );
 
-    insert_button = new wxButton( buttonBox->GetStaticBox(), wxID_ANY, wxT("Inserisci attività"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+    insert_button = new wxButton( buttonBox->GetStaticBox(), wxID_NEW,  wxT("Inserisci attività"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     insert_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     insert_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
@@ -30,6 +30,7 @@ HomeFrame::HomeFrame(Register* reg, wxWindowID id, const wxString& title, const 
     buttonBox->Add( view_button, 0, wxALL|wxEXPAND, 5 );
 
     help_button = new wxButton( buttonBox->GetStaticBox(), wxID_HELP );
+    view_button->SetForegroundColour(wxColor(255, 128, 0));
     buttonBox->Add( help_button, 0, wxALL | wxALIGN_CENTER_HORIZONTAL, 5 );
 
     secondBox->Add( buttonBox, 1, 5 );

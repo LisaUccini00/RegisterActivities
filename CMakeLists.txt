@@ -3,7 +3,7 @@ project(RegisterActivities)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_package(wxWidgets REQUIRED net gl core base xrc adv )
+find_package(wxWidgets REQUIRED net gl core base xrc adv)
 include(${wxWidgets_USE_FILE})
 
 add_subdirectory(test)

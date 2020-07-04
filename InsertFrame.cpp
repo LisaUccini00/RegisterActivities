@@ -80,17 +80,18 @@ InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString
     stopGrid->Add( stop_seconds, 0, wxALL, 5 );
     firstGrid->Add( stopGrid, 1, 0, 5 );
 
-    return_button = new wxButton( this, wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
+    return_button = new wxButton( this, wxID_EXIT, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
     return_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     return_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
     return_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( return_button, 0, wxALL|wxEXPAND, 5 );
 
-    insert_button = new wxButton( this, wxID_ANY, wxT("Aggiungi"), wxPoint( -1,-1 ), wxSize( -1,-1 ), 0 );
+    insert_button = new wxButton( this, wxID_NEW, wxT("Aggiungi"), wxPoint( -1,-1 ), wxSize( -1,-1 ), 0 );
     insert_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     insert_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
     insert_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
+
 
     generalBox->Add(firstGrid);
     this->SetSizer( generalBox );
@@ -116,8 +117,10 @@ void InsertFrame::OnReturnClick(wxCommandEvent &event) {
 
 void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     bool added;
-    string title = title_text->GetValue().ToStdString();
-    string description = description_text->GetValue().ToStdString();
+    wxString titlewx = title_text->GetValue();
+    string title = string(titlewx.mbc_str());
+    wxString descriptionwx = description_text->GetValue().ToStdString();
+    string description = string(descriptionwx.mbc_str());
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
     Activity *a = new Activity(title, description, start, stop);
@@ -126,15 +129,15 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
         if(start < stop){
             added = r->addActivity(data, a);
             if(!added){
-                wxMessageBox(wxT("Questa attività è già stata inserita precedentemente"), wxT("Attenzione"), wxICON_ERROR, this);
+                wxMessageBox(wxT("Questa attività è già stata inserita precedentemente"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
             }else{
                 returnHome();
             }
         }else{
-            wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxICON_ERROR, this);
+            wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
         }
     }else{
-        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxICON_ERROR, this);
+        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri o sono state usati lettere accentate"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
     }
 
 }

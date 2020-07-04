@@ -12,6 +12,7 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
     int number = a.size();
 
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
     wxStaticBoxSizer* generalBox;
     generalBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
     wxGridSizer* intestazioneGrid;
