@@ -20,7 +20,7 @@ struct Time{
         }
         return false;
     }
-    bool operator==(Time& right){
+    bool operator==(Time right){
         if(hours == right.hours && minutes == right.minutes && seconds == right.seconds){
             return true;
         }
@@ -48,7 +48,7 @@ struct Activity{
     Time start, stop;
     Activity(string titolo, string descrizione, Time inizio, Time fine):
             title(titolo), description(descrizione), start(inizio), stop(fine){}
-    bool operator==(Activity& right){
+    bool operator==(Activity right){
         if(description == right.description && title == right.title && start == right.start && stop == right.stop){
             return true;
         }
@@ -58,10 +58,9 @@ struct Activity{
 
 class Register{
 private:
-    map<wxDateTime, list < Activity*>> activities;
+    map<string, list < Activity*>> activities; //format d/m/y
 public:
-    bool addActivity(wxDateTime d, Activity& a);
-    void removeActivity(wxDateTime& d, Activity& a);
-    list<Activity*> getActivities(const wxDateTime& d);
+    bool addActivity(string d, Activity* a);
+    list<Activity*> getActivities(const string& d);
 };
 #endif //REGISTERACTIVITIES_REGISTER_H

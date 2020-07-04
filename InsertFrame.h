@@ -33,6 +33,8 @@ private:
     Register *r;
     void closeFrame();
     void returnHome();
+    string data;
+
 protected:
     wxStaticText* title_static;
     wxTextCtrl* title_text;
@@ -46,7 +48,6 @@ protected:
     wxSpinCtrl* stop_hours;
     wxSpinCtrl* stop_minutes;
     wxSpinCtrl* stop_seconds;
-    wxDatePickerCtrl* date_actvity;
     wxButton* insert_button;
     wxButton* return_button;
 
@@ -54,10 +55,9 @@ protected:
     virtual void OnReturnClick( wxCommandEvent& event );
     virtual void OnInsertClick( wxCommandEvent& event );
 
-
 public:
 
-    InsertFrame( Register &reg, wxWindowID id = wxID_ANY, const wxString& title = wxT("insert activity"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 900, 450), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    InsertFrame( Register *reg, string d, wxWindowID id = wxID_ANY, const wxString& title = wxT("insert activity"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 900, 350), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~InsertFrame();
 

@@ -10,18 +10,18 @@
 
 TEST(RegisterTextFixture, TestAddActivity){
     Time t(4, 4, 4);
-    wxDateTime firstDate;
+    string date = "02/12/20";
     Activity firstEvent("title1", "fist event", t, t);
     Activity secondEvent("title2", "second event", t, t);
     Register *reg = new Register;
     bool added;
-    added = reg->addActivity(firstDate.Now(), firstEvent);
-    added = reg->addActivity(firstDate.Now(), firstEvent);
-    added = reg->addActivity(firstDate.Now(), secondEvent);
+    added = reg->addActivity(date, &firstEvent);
+    added = reg->addActivity(date, &firstEvent);
+    added = reg->addActivity(date, &secondEvent);
 
     list<Activity*> activities;
     activities.push_back(&firstEvent);
     activities.push_back(&secondEvent);
-    ASSERT_EQ(activities, reg->getActivities(firstDate.Now()));
+    ASSERT_EQ(activities, reg->getActivities(date));
 }
 

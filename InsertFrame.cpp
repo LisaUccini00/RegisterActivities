@@ -5,10 +5,13 @@
 #include "InsertFrame.h"
 #include "Register.h"
 
-InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(&reg), wxFrame( NULL, id, title, pos, size, style )
+InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : r(reg), data(d), wxFrame( NULL, id, title, pos, size, style )
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
     this->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxT("Rubik") ) );
+
+    wxStaticBoxSizer* generalBox;
+    generalBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
 
     wxGridSizer* firstGrid;
     firstGrid = new wxGridSizer( 5, 2, 0, 0 );
@@ -77,25 +80,20 @@ InsertFrame::InsertFrame( Register& reg, wxWindowID id, const wxString& title, c
     stopGrid->Add( stop_seconds, 0, wxALL, 5 );
     firstGrid->Add( stopGrid, 1, 0, 5 );
 
-    date_actvity = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT|wxDP_DROPDOWN );
-    date_actvity->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
-    date_actvity->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-    firstGrid->Add( date_actvity, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-
-    wxGridSizer* buttonGrid;
-    buttonGrid = new wxGridSizer( 2, 1, 0, 0 );
-    insert_button = new wxButton( this, wxID_ANY, wxT("Aggiungi"), wxPoint( -1,-1 ), wxSize( -1,-1 ), 0 );
-    insert_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
-    insert_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
-    insert_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-    buttonGrid->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
     return_button = new wxButton( this, wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
     return_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     return_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
     return_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-    buttonGrid->Add( return_button, 0, wxALL|wxEXPAND|wxLEFT, 5 );
-    firstGrid->Add( buttonGrid, 1, wxEXPAND, 5 );
-    this->SetSizer( firstGrid );
+    firstGrid->Add( return_button, 0, wxALL|wxEXPAND, 5 );
+
+    insert_button = new wxButton( this, wxID_ANY, wxT("Aggiungi"), wxPoint( -1,-1 ), wxSize( -1,-1 ), 0 );
+    insert_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
+    insert_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
+    insert_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
+    firstGrid->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
+
+    generalBox->Add(firstGrid);
+    this->SetSizer( generalBox );
 
     this->Layout();
     this->Centre( wxBOTH );
@@ -126,7 +124,7 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     Time controll(0, 0, 0);
     if(start != controll && stop != controll && title != "" && description != "" ) {
         if(start < stop){
-            added = r->addActivity(date_actvity->GetValue(), *a);
+            added = r->addActivity(data, a);
             if(!added){
                 wxMessageBox(wxT("Questa attività è già stata inserita precedentemente"), wxT("Attenzione"), wxICON_ERROR, this);
             }else{

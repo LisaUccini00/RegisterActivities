@@ -50,18 +50,21 @@ HomeFrame::~HomeFrame()
 }
 
 void HomeFrame::OnInsertFrame(wxCommandEvent &event) {
-    InsertFrame *insertF = new InsertFrame(*r);
+    wxString datawx = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
+    string data = datawx.ToStdString();
+    InsertFrame *insertF = new InsertFrame(r, data);
     insertF->Show( true );
     delete this;
 
 }
 
 void HomeFrame::OnViewFrame(wxCommandEvent &event) {
-    auto list = r->getActivities(m_calendar1->GetDate());
+    wxString datawx = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
+    string data = datawx.ToStdString();
+    auto list = r->getActivities(data);
     for(auto it: list){
         cout<<it->title<<endl;
     }
-    wxString data = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
     if(list.empty()){
         wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
     }else{
@@ -72,5 +75,5 @@ void HomeFrame::OnViewFrame(wxCommandEvent &event) {
 }
 
 void HomeFrame::OnHelp(wxCommandEvent &event) {
-    wxMessageBox(wxT("Inserisci una nuova attività oppure scegli una data e visualizza le attività effettuate quel giorno"), wxT("Help"), wxHELP, this);
+    wxMessageBox(wxT("Scegli un giorno e inserisci una nuova attività oppure visualizza le attività precedentemente inserite per quella determinata giornata"), wxT("Help"), wxHELP, this);
 }
