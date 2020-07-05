@@ -24,6 +24,8 @@ class ViewFrame : public wxFrame
 private:
     Register *r;
     list<Activity> listActivity;
+    string data;
+    void returnHome();
 protected:
     wxStaticText* title_static1;
     wxStaticText* description_static1;
@@ -32,14 +34,15 @@ protected:
     wxTextCtrl* title_text;
     wxTextCtrl* description_text;
     wxButton* return_button;
+    wxButton* delete_button;
 
 
     // Virtual event handlers, overide them in your derived class
     virtual void OnReturnClick( wxCommandEvent& event );
+    virtual void OnDeleteClick( wxCommandEvent& event );
 
 public:
-
-    ViewFrame( Register* reg, list<Activity>& a, const wxString& title = wxT("Visualizza attività"), wxWindowID id = wxID_ANY,  const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,900 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+    ViewFrame( Register* reg, list<Activity> a, string d, const wxString& title, wxWindowID id = wxID_ANY,  const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 600,900 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
     ~ViewFrame();
 };
 #endif //REGISTERACTIVITIES_VIEWFRAME_H

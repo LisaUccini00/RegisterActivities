@@ -106,8 +106,8 @@ InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString
 InsertFrame::~InsertFrame()
 {
     // Disconnect Events
-    closeFrame();
-
+    return_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( InsertFrame::OnReturnClick ), NULL, this );
+    insert_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( InsertFrame::OnInsertClick ), NULL, this );
 }
 
 void InsertFrame::OnReturnClick(wxCommandEvent &event) {
@@ -143,11 +143,6 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
 
 }
 
-void InsertFrame::closeFrame() {
-    return_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( InsertFrame::OnReturnClick ), NULL, this );
-    insert_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( InsertFrame::OnInsertClick ), NULL, this );
-
-}
 
 void InsertFrame::returnHome() {
     HomeFrame *home = new HomeFrame(r);

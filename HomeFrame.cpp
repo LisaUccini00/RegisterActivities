@@ -61,17 +61,17 @@ void HomeFrame::OnInsertFrame(wxCommandEvent &event) {
 
 void HomeFrame::OnViewFrame(wxCommandEvent &event) {
     wxString datawx = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
-    string data = datawx.ToStdString();
-    auto list = r->getActivities(data);
-    if(list.empty()){
+    string d = string(datawx.mbc_str());
+    auto listA = r->getActivities(d);
+    if(listA.empty()){
         wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
     }else{
-        ViewFrame *viewF = new ViewFrame(r, list);
+        ViewFrame *viewF = new ViewFrame(r, listA, d, wxT("Visualizza le attività in data: "+d));
         viewF->Show( true );
         delete this;
     }
 }
 
 void HomeFrame::OnHelp(wxCommandEvent &event) {
-    wxMessageBox(wxT("Scegli un giorno e inserisci una nuova attività oppure visualizza le attività precedentemente inserite per quella determinata giornata"), wxT("Help"), wxHELP, this);
+    wxMessageBox(wxT("Scegli un giorno e inserisci una nuova attività oppure visualizza le attività precedentemente inserite per quella determinata giornata"), wxT("Help"), wxOK, this);
 }

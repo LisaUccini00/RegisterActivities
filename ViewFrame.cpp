@@ -7,7 +7,7 @@
 #include "Register.h"
 #include <list>
 
-ViewFrame::ViewFrame( Register* reg, list<Activity>& a, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : r(reg), listActivity(a), wxFrame( NULL, id, title, pos, size, style )
+ViewFrame::ViewFrame( Register* reg, list<Activity> a, string d, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : r(reg), listActivity(a), data(d), wxFrame( NULL, id, title, pos, size, style )
 {
     int number = a.size();
 
@@ -71,11 +71,22 @@ ViewFrame::ViewFrame( Register* reg, list<Activity>& a, const wxString& title, w
 
     generalBox->Add( grid, 1, 5 );
 
+    wxStaticBoxSizer* buttonBox;
+    buttonBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
+
+    delete_button = new wxButton( generalBox->GetStaticBox(), wxID_ANY, wxT("Elimina tutte le attività del giorno "+d), wxDefaultPosition, wxDefaultSize, 0 );
+    delete_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
+    delete_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
+    delete_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
+    buttonBox->Add( delete_button, 0, wxALL|wxEXPAND|wxLEFT, 5 );
+
     return_button = new wxButton( generalBox->GetStaticBox(), wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
     return_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     return_button->SetForegroundColour( wxColour( 255, 128, 0 ) );
     return_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-    generalBox->Add( return_button, 0, wxALL|wxEXPAND|wxLEFT, 5 );
+    buttonBox->Add( return_button, 0, wxALL|wxEXPAND|wxLEFT, 5 );
+
+    generalBox->Add(buttonBox, 1, 5);
 
     this->SetSizer( generalBox );
     this->Layout();
@@ -83,16 +94,28 @@ ViewFrame::ViewFrame( Register* reg, list<Activity>& a, const wxString& title, w
 
     // Connect Events
     return_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ViewFrame::OnReturnClick ), NULL, this );
+    delete_button->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ViewFrame::OnDeleteClick ), NULL, this );
 }
 
 ViewFrame::~ViewFrame()
 {
     // Disconnect Events
     return_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ViewFrame::OnReturnClick ), NULL, this );
+    delete_button->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( ViewFrame::OnDeleteClick ), NULL, this );
 }
 
-void ViewFrame::OnReturnClick(wxCommandEvent &event) {
+void ViewFrame::returnHome(){
     HomeFrame *home = new HomeFrame(r);
     home->Show( true );
     delete this;
+}
+
+void ViewFrame::OnReturnClick(wxCommandEvent &event) {
+    returnHome();
+}
+
+void ViewFrame::OnDeleteClick(wxCommandEvent &event) {
+    r->deleteActivity(data);
+    wxMessageBox(wxT("Attività eliminate con successo"), wxT(""), wxOK , this);
+    returnHome();
 }

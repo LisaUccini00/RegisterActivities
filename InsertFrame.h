@@ -31,10 +31,8 @@ class InsertFrame : public wxFrame
 {
 private:
     Register *r;
-    void closeFrame();
-    void returnHome();
     string data;
-
+    void returnHome();
 protected:
     wxStaticText* title_static;
     wxTextCtrl* title_text;

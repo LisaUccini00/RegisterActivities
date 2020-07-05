@@ -7,7 +7,7 @@
 #include <list>
 
 
-TEST(RegisterTextFixture, TestAddActivity){
+TEST(RegisterTextFixture, TestAddRemoveActivity){
     Time start(4, 4, 4);
     Time stop(5, 5, 5);
     string firstDate = "06/01/20";
@@ -33,6 +33,11 @@ TEST(RegisterTextFixture, TestAddActivity){
     correct2.push_back(secondEvent);
 
     ASSERT_EQ(correct1, reg->getActivities(firstDate));
+    ASSERT_EQ(correct2, reg->getActivities(secondDate));
+
+    reg->deleteActivity(secondDate);
+    correct2.remove(secondEvent);
+
     ASSERT_EQ(correct2, reg->getActivities(secondDate));
 }
 

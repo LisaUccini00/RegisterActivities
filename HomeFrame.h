@@ -28,16 +28,16 @@ protected:
     wxButton* view_button;
     wxButton* help_button;
 
+    // Virtual event handlers, overide them in your derived class
+    virtual void OnInsertFrame( wxCommandEvent& event );
+    virtual void OnViewFrame( wxCommandEvent& event );
+    virtual void OnHelp(wxCommandEvent& event);
+
 public:
 
     HomeFrame( Register* r, wxWindowID id = wxID_ANY, const wxString& title = wxT("Home"), const wxPoint& pos = wxPoint(50, 50), const wxSize& size = wxSize( 600, 300), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
     ~HomeFrame();
-
-    // Virtual event handlers, overide them in your derived class
-    virtual void OnInsertFrame( wxCommandEvent& event );
-    virtual void OnViewFrame( wxCommandEvent& event );
-    virtual void OnHelp(wxCommandEvent& event);
 
 };
 #endif //REGISTERACTIVITIES_HOMEFRAME_H

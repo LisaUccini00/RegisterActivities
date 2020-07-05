@@ -62,5 +62,6 @@ private:
 public:
     bool addActivity(string d, Activity& a);
     list<Activity> getActivities(const string& d);
+    void deleteActivity(string d);
 };
 #endif //REGISTERACTIVITIES_REGISTER_H

@@ -34,3 +34,7 @@ list<Activity> Register::getActivities(const string &d){
 
 }
 
+void Register::deleteActivity(const string d) {
+    activities.erase(d);
+}
+
