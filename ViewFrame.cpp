@@ -42,6 +42,7 @@ ViewFrame::ViewFrame( Register* reg, list<Activity> a, string d, const wxString&
     stop_static->SetForegroundColour( wxColour(255, 128, 0));
     grid->Add( stop_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
+
     for(auto activity: listActivity){
         wxString titolo(activity.title.c_str(), wxConvUTF8);
         wxString descrizione(activity.description.c_str(), wxConvUTF8);

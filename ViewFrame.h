@@ -26,6 +26,7 @@ private:
     list<Activity> listActivity;
     string data;
     void returnHome();
+
 protected:
     wxStaticText* title_static1;
     wxStaticText* description_static1;

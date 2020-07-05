@@ -44,7 +44,7 @@ InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString
     wxGridSizer* startGrid;
     startGrid = new wxGridSizer( 1, 3, 0, 0 );
 
-    start_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 24, 0 );
+    start_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0, 23, 0 );
     start_hours->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     startGrid->Add( start_hours, 0, wxALL, 5 );
 
@@ -67,7 +67,7 @@ InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString
     wxGridSizer* stopGrid;
     stopGrid = new wxGridSizer( 1, 3, 0, 0 );
 
-    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS,0, 24, 0 );
+    stop_hours = new wxSpinCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS,0, 23, 0 );
     stop_hours->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );
     stopGrid->Add( stop_hours, 0, wxALL, 5 );
 
@@ -122,11 +122,10 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     string description = string(descriptionwx.mbc_str());
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
-    Time controll(0, 0, 0);
 
     Activity a (title, description, start, stop);
 
-    if(start == controll || stop == controll || title_text->IsEmpty() || description_text->IsEmpty() ) {
+    if(title_text->IsEmpty() || description_text->IsEmpty() ) {
         wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
     }else{
         if(start < stop){
