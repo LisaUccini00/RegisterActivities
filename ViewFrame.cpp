@@ -15,32 +15,32 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
 
     wxStaticBoxSizer* generalBox;
     generalBox = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
-    wxGridSizer* intestazioneGrid;
-    intestazioneGrid = new wxGridSizer( number+1, 4, 0, 0 );
+    wxGridSizer* grid;
+    grid = new wxGridSizer( number+1, 4, 0, 0 );
 
     title_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Titolo"), wxDefaultPosition, wxDefaultSize, 0 );
     title_static1->Wrap( -1 );
     title_static1->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     title_static1->SetForegroundColour( wxColour(255, 128, 0));
-    intestazioneGrid->Add( title_static1, 0, wxALL, 5 );
+    grid->Add( title_static1, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     description_static1 = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Descrizione"), wxDefaultPosition, wxDefaultSize, 0 );
     description_static1->Wrap( -1 );
     description_static1->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     description_static1->SetForegroundColour( wxColour(255, 128, 0));
-    intestazioneGrid->Add( description_static1, 0, wxALL, 5 );
+    grid->Add( description_static1, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     start_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Inizio"), wxDefaultPosition, wxDefaultSize, 0 );
     start_static->Wrap( -1 );
     start_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     start_static->SetForegroundColour( wxColour(255, 128, 0));
-    intestazioneGrid->Add( start_static, 0, wxALL, 5 );
+    grid->Add( start_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     stop_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, wxT("Fine"), wxDefaultPosition, wxDefaultSize, 0 );
     stop_static->Wrap( -1 );
     stop_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
     stop_static->SetForegroundColour( wxColour(255, 128, 0));
-    intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
+    grid->Add( stop_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     for(auto activity: listActivity){
         wxString titolo(activity->title.c_str(), wxConvUTF8);
@@ -51,25 +51,25 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
         title_text = new wxTextCtrl( this, wxID_ANY, titolo, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY );
         title_text->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
         title_text->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-        intestazioneGrid->Add( title_text, 0, wxALL, 5 );
+        grid->Add( title_text, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
         description_text = new wxTextCtrl( this, wxID_ANY, descrizione, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY );
         description_text->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
         description_text->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
-        intestazioneGrid->Add( description_text, 0, wxALL, 5 );
+        grid->Add( description_text, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
         start_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, start, wxDefaultPosition, wxDefaultSize, 0 );
         start_static->Wrap( -1 );
         start_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
-        intestazioneGrid->Add( start_static, 0, wxALL, 5 );
+        grid->Add( start_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
         stop_static = new wxStaticText( generalBox->GetStaticBox(), wxID_ANY, stop, wxDefaultPosition, wxDefaultSize, 0 );
         stop_static->Wrap( -1 );
         stop_static->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );
-        intestazioneGrid->Add( stop_static, 0, wxALL, 5 );
+        grid->Add( stop_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     }
 
-    generalBox->Add( intestazioneGrid, 1, 5 );
+    generalBox->Add( grid, 1, 5 );
 
     return_button = new wxButton( generalBox->GetStaticBox(), wxID_ANY, wxT("Home"), wxDefaultPosition, wxDefaultSize, 0 );
     return_button->SetFont( wxFont( 10, 70, 90, 90, false, wxT("Rubik") ) );

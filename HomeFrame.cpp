@@ -63,9 +63,6 @@ void HomeFrame::OnViewFrame(wxCommandEvent &event) {
     wxString datawx = m_calendar1->GetDate().Format(wxT("%d/%m/%y"), wxDateTime::CET);
     string data = datawx.ToStdString();
     auto list = r->getActivities(data);
-    for(auto it: list){
-        cout<<it->title<<endl;
-    }
     if(list.empty()){
         wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
     }else{

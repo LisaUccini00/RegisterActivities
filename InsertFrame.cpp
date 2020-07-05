@@ -92,7 +92,6 @@ InsertFrame::InsertFrame( Register* reg, string d, wxWindowID id, const wxString
     insert_button->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
     firstGrid->Add( insert_button, 0, wxALL|wxEXPAND, 5 );
 
-
     generalBox->Add(firstGrid);
     this->SetSizer( generalBox );
 
@@ -119,7 +118,7 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     bool added;
     wxString titlewx = title_text->GetValue();
     string title = string(titlewx.mbc_str());
-    wxString descriptionwx = description_text->GetValue().ToStdString();
+    wxString descriptionwx = description_text->GetValue();
     string description = string(descriptionwx.mbc_str());
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
@@ -137,7 +136,7 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
             wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
         }
     }else{
-        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri o sono state usati lettere accentate"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
+        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
     }
 
 }
