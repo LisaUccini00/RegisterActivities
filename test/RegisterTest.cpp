@@ -5,7 +5,6 @@
 #include "lib/googletest/include/gtest/gtest.h"
 #include "../Register.h"
 #include <list>
-#include <wx/wx.h>
 
 
 TEST(RegisterTextFixture, TestAddActivity){
@@ -16,19 +15,24 @@ TEST(RegisterTextFixture, TestAddActivity){
     Activity firstEvent("title1", "fist event", start, stop);
     Activity secondEvent("title2", "second event", start, stop);
     Register *reg = new Register;
-    bool added;
 
-    added = reg->addActivity(firstDate, &firstEvent);
-    added = reg->addActivity(firstDate, &firstEvent);
-    added = reg->addActivity(firstDate, &secondEvent);
-    added = reg->addActivity(secondDate, &firstEvent);
-    added = reg->addActivity(secondDate, &secondEvent);
+    bool added = reg->addActivity(firstDate, firstEvent);
+    ASSERT_EQ(true, added);
 
-    list<Activity*> activities;
-    activities.push_back(&firstEvent);
-    activities.push_back(&secondEvent);
+    added = reg->addActivity(firstDate, firstEvent);
+    ASSERT_EQ(false, added);
 
-    ASSERT_EQ(activities, reg->getActivities(firstDate));
-    ASSERT_EQ(activities, reg->getActivities(secondDate));
+    added = reg->addActivity(firstDate, secondEvent);
+    added = reg->addActivity(secondDate, secondEvent);
+
+    list<Activity> correct1;
+    correct1.push_back(firstEvent);
+    correct1.push_back(secondEvent);
+
+    list<Activity> correct2;
+    correct2.push_back(secondEvent);
+
+    ASSERT_EQ(correct1, reg->getActivities(firstDate));
+    ASSERT_EQ(correct2, reg->getActivities(secondDate));
 }
 

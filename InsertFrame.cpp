@@ -122,8 +122,10 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     string description = string(descriptionwx.mbc_str());
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
-    Activity a (title, description, start, stop);
     Time controll(0, 0, 0);
+
+    Activity a (title, description, start, stop);
+
     if(start == controll || stop == controll || title_text->IsEmpty() || description_text->IsEmpty() ) {
         wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
     }else{

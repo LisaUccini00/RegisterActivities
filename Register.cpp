@@ -8,9 +8,9 @@
 bool Register::addActivity(string d, Activity& a) {
     auto day = activities.find(d);
     if(day != activities.end()){
-        list<Activity> l = getActivities(d);
-        auto ac = find(l.begin(), l.end(), a);
-        if(ac == l.end()){
+        list<Activity> l = day->second;
+        auto findAct = find(l.begin(), l.end(), a);
+        if(findAct == l.end()){
             day->second.push_back(a);
             return true;
         }else{
@@ -24,14 +24,13 @@ bool Register::addActivity(string d, Activity& a) {
     }
 }
 
-list<Activity > Register::getActivities(const string &d)const{
+list<Activity> Register::getActivities(const string &d){
     auto date = activities.find(d);
-    if(date != activities.end()){
-        return date->second;
-    }else{
-        list<Activity> l;
-        return l;
+    list<Activity> l;
+    if(date != activities.end()) {
+        l = date->second;
     }
+    return l;
 
 }
 
