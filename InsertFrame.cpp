@@ -122,9 +122,11 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
     string description = string(descriptionwx.mbc_str());
     Time start(start_hours->GetValue(), start_minutes->GetValue(), start_seconds->GetValue());
     Time stop(stop_hours->GetValue(), stop_minutes->GetValue(), stop_seconds->GetValue());
-    Activity *a = new Activity(title, description, start, stop);
+    Activity a (title, description, start, stop);
     Time controll(0, 0, 0);
-    if(start != controll && stop != controll && title != "" && description != "" ) {
+    if(start == controll || stop == controll || title_text->IsEmpty() || description_text->IsEmpty() ) {
+        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
+    }else{
         if(start < stop){
             added = r->addActivity(data, a);
             if(!added){
@@ -133,10 +135,8 @@ void InsertFrame::OnInsertClick(wxCommandEvent &event) {
                 returnHome();
             }
         }else{
-            wxMessageBox(wxT("Orario di inizio è maggiore dell'orario della fine"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
+            wxMessageBox(wxT("Orario di inizio è maggiore o uguale dell'orario della fine"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
         }
-    }else{
-        wxMessageBox(wxT("Non sono stati inseriti tutti i parametri"), wxT("Attenzione"), wxOK | wxICON_EXCLAMATION, this);
     }
 
 }
@@ -152,4 +152,3 @@ void InsertFrame::returnHome() {
     home->Show( true );
     delete this;
 }
-

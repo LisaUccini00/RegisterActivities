@@ -7,7 +7,7 @@
 #include "Register.h"
 #include <list>
 
-ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : r(reg), listActivity(a), wxFrame( NULL, id, title, pos, size, style )
+ViewFrame::ViewFrame( Register* reg, list<Activity>& a, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : r(reg), listActivity(a), wxFrame( NULL, id, title, pos, size, style )
 {
     int number = a.size();
 
@@ -43,10 +43,10 @@ ViewFrame::ViewFrame( Register* reg, list<Activity*> a, const wxString& title, w
     grid->Add( stop_static, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     for(auto activity: listActivity){
-        wxString titolo(activity->title.c_str(), wxConvUTF8);
-        wxString descrizione(activity->description.c_str(), wxConvUTF8);
-        wxString start(activity->start.toString().c_str(), wxConvUTF8);
-        wxString stop(activity->stop.toString().c_str(), wxConvUTF8);
+        wxString titolo(activity.title.c_str(), wxConvUTF8);
+        wxString descrizione(activity.description.c_str(), wxConvUTF8);
+        wxString start(activity.start.toString().c_str(), wxConvUTF8);
+        wxString stop(activity.stop.toString().c_str(), wxConvUTF8);
 
         title_text = new wxTextCtrl( this, wxID_ANY, titolo, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE | wxTE_READONLY );
         title_text->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 90, false, wxT("Rubik") ) );

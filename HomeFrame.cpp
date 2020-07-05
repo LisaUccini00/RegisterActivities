@@ -66,7 +66,7 @@ void HomeFrame::OnViewFrame(wxCommandEvent &event) {
     if(list.empty()){
         wxMessageBox(wxT("Non è stata inserita alcuna attività in questa data"), wxT("Attenzione"), wxICON_ERROR, this);
     }else{
-        ViewFrame *viewF = new ViewFrame(r, list, data);
+        ViewFrame *viewF = new ViewFrame(r, list);
         viewF->Show( true );
         delete this;
     }

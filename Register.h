@@ -48,7 +48,7 @@ struct Activity{
     Time start, stop;
     Activity(string titolo, string descrizione, Time inizio, Time fine):
             title(titolo), description(descrizione), start(inizio), stop(fine){}
-    bool operator==(Activity right){
+    bool operator==(const Activity& right){
         if(description == right.description && title == right.title && start == right.start && stop == right.stop){
             return true;
         }
@@ -58,9 +58,9 @@ struct Activity{
 
 class Register{
 private:
-    map<string, list < Activity*>> activities; //format d/m/y
+    map<string, list < Activity>> activities; //format d/m/y
 public:
-    bool addActivity(string d, Activity* a);
-    list<Activity*> getActivities(const string& d);
+    bool addActivity(string d, Activity& a);
+    list<Activity> getActivities(const string& d)const;
 };
 #endif //REGISTERACTIVITIES_REGISTER_H
